@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ten_flutter_app/count_down_timer/countDownTimer.dart';
+import 'package:ten_flutter_app/count_down_timer/timer02.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: CountDownTimmer(),
+      home: second_timer(),
     );
   }
 }

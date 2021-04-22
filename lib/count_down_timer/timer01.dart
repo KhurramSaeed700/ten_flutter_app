@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,7 +19,6 @@ class _CountDownTimmerState extends State<CountDownTimmer> {
     super.initState();
     _minute = TextEditingController();
     _second = TextEditingController();
-
   }
 
   @override
@@ -53,7 +51,9 @@ class _CountDownTimmerState extends State<CountDownTimmer> {
         ),
         body: Center(
           child: Text(
-              _minute.text==''||_second.text=='' ? '00:00' :'${_minute.text}:${_second.text}',
+              _minute.text == '' || _second.text == ''
+                  ? '00:00'
+                  : '${_minute.text}:${_second.text}',
               style: TextStyle(
                 fontSize: 100,
                 letterSpacing: 15,
@@ -75,8 +75,8 @@ class _CountDownTimmerState extends State<CountDownTimmer> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Set Timer',
-                                style: TextStyle(
-                                    color: Colors.grey, fontSize: 40),
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 40),
                               ),
                             ),
                             Padding(
@@ -106,10 +106,9 @@ class _CountDownTimmerState extends State<CountDownTimmer> {
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(onPressed: (){
-
-                                },
-                                    child: Text('Start'),
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('Start'),
                                 ),
                               ),
                             )
