@@ -9,9 +9,10 @@ class _second_timerState extends State<second_timer> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scafold(
-        
+        child: Scaffold(
+      appBar: AppBar(
+        title: Text('hello'),
       ),
-    );
+    ));
   }
 }
