@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class CountDownTimmer extends StatefulWidget {
+class CountDownTimer extends StatefulWidget {
   @override
-  _CountDownTimmerState createState() => _CountDownTimmerState();
+  _CountDownTimerState createState() => _CountDownTimerState();
 }
 
-class _CountDownTimmerState extends State<CountDownTimmer> {
+class _CountDownTimerState extends State<CountDownTimer> {
   TextEditingController _minute;
   TextEditingController _second;
   Timer _timer;
