@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+// ignore: camel_case_types
 class timerStopwatch extends StatefulWidget {
   @override
   _timerStopwatchState createState() => _timerStopwatchState();
 }
 
+// ignore: camel_case_types
 class _timerStopwatchState extends State<timerStopwatch>
     with TickerProviderStateMixin {
   int hour = 0;
@@ -113,11 +115,40 @@ class _timerStopwatchState extends State<timerStopwatch>
           ),
           Expanded(
             flex: 1,
-            child: Text('1'),
+            child: Text(
+              '1',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           Expanded(
             flex: 3,
-            child: Text('3'),
+            child: Row(
+              children: <Widget>[
+                FloatingActionButton(
+                  backgroundColor: Colors.green[700],
+                  onPressed: (){},
+                  child: Text(
+                    'Start',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                FloatingActionButton(
+                  backgroundColor: Colors.red[600],
+                  onPressed: (){},
+                  child: Text(
+                    'Start',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
+            )
           ),
         ],
       ),
