@@ -28,15 +28,15 @@ class _CountDownTimerState extends State<CountDownTimer> {
     super.dispose();
   }
 
-  void startTimer(){
-    final oneSecond = Duration(seconds: 1);
-    totalTime = _minute.text * 60 + _second.text;
-    _timer = Timer.periodic(oneSecond, (timer) {
-      setState(() {
-        if ()
-      });
-    });
-  }
+  // void startTimer(){
+  //   final oneSecond = Duration(seconds: 1);
+  //   totalTime = _minute.text * 60 + _second.text;
+  //   _timer = Timer.periodic(oneSecond, (timer) {
+  //     setState(() {
+  //       if ()
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

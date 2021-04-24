@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -13,12 +15,44 @@ class _timerStopwatchState extends State<timerStopwatch>
   int hour = 0;
   int min = 0;
   int sec = 0;
+  bool started = true;
+  bool stopped = false;
+  int timeForTimer = 0;
+  String timeToDisplay = '0';
+  bool checkTimer = true;
 
   TabController tb;
   @override
   void initState() {
     tb = TabController(length: 2, vsync: this);
     super.initState();
+  }
+
+  void start() {
+    setState(() {
+      started = false;
+      stopped = true;
+    });
+    timeForTimer = (hour * 3600) + (min * 60) + (sec);
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        if (timeForTimer < 1 || checkTimer == false) {
+          t.cancel();
+          checkTimer = true;
+        } else {
+          timeForTimer -= 1;
+        }
+        timeToDisplay = timeForTimer.toString();
+      });
+    });
+  }
+
+  void stop() {
+    setState(() {
+      started = true;
+      stopped = false;
+      checkTimer = false;
+    });
   }
 
   Widget timer() {
@@ -28,128 +62,133 @@ class _timerStopwatchState extends State<timerStopwatch>
         children: <Widget>[
           Expanded(
             flex: 6,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 80, 0, 20),
-                      child: Text(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 80),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text(
                         'H',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 38, fontWeight: FontWeight.w300),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: NumberPicker(
+                      NumberPicker(
                         value: hour,
                         minValue: 0,
-                        maxValue: 23,
+                        maxValue: 999,
                         itemWidth: 80,
                         onChanged: (val) {
                           setState(() {
                             hour = val;
                           });
                         },
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 80, 0, 20),
-                      child: Text(
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text(
                         'M',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 38, fontWeight: FontWeight.w300),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: NumberPicker(
+                      NumberPicker(
                         value: min,
                         minValue: 0,
-                        maxValue: 23,
+                        maxValue: 59,
                         itemWidth: 80,
                         onChanged: (val) {
                           setState(() {
                             min = val;
                           });
                         },
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 80, 0, 20),
-                      child: Text(
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text(
                         'S',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 38, fontWeight: FontWeight.w300),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: NumberPicker(
+                      NumberPicker(
                         value: sec,
                         minValue: 0,
                         itemWidth: 80,
-                        maxValue: 23,
+                        maxValue: 59,
                         onChanged: (val) {
                           setState(() {
                             sec = val;
                           });
                         },
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              '1',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
           Expanded(
             flex: 3,
-            child: Row(
+            child: Column(
               children: <Widget>[
-                FloatingActionButton(
-                  backgroundColor: Colors.green[700],
-                  onPressed: (){},
+                Divider(
+                  color: Colors.grey,
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Start',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                    timeToDisplay,
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
                   ),
                 ),
-                FloatingActionButton(
-                  backgroundColor: Colors.red[600],
-                  onPressed: (){},
-                  child: Text(
-                    'Start',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
+                Divider(
+                  color: Colors.grey,
+                  height: 50,
                 ),
               ],
-            )
+            ),
           ),
+          Expanded(
+              flex: 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: started ? start : null,
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                    color: Colors.green,
+                    child: Text(
+                      'Start',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                  RaisedButton(
+                    onPressed: stopped ? stop : null,
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                    color: Colors.red,
+                    child: Text(
+                      'Stop',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ],
+              )),
         ],
       ),
     );
@@ -158,7 +197,10 @@ class _timerStopwatchState extends State<timerStopwatch>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timer App'),
+        title: Text(
+          'Timer App',
+          style: TextStyle(fontSize: 22),
+        ),
         centerTitle: true,
         bottom: TabBar(
           tabs: <Widget>[
@@ -174,7 +216,11 @@ class _timerStopwatchState extends State<timerStopwatch>
       body: TabBarView(
         children: <Widget>[
           timer(),
-          Text('StopWatch'),
+          Center(
+              child: Text(
+            'StopWatch',
+            style: TextStyle(fontSize: 50, fontWeight: FontWeight.w100),
+          )),
         ],
         controller: tb,
       ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ten_flutter_app/count_down_timer/timer02.dart';
 import 'package:ten_flutter_app/count_down_timer/timerStopwatch03.dart';
-
+import 'count_down_timer/test.dart';
 
 void main() => runApp(MyApp());
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,8 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      // home: second_timer(),//second attempt at timer app
-      home: timerStopwatch(),// third attempt
+      // home: second_timer(), //second attempt at timer app
+      home: timerStopwatch(), // timer and stopwatch
     );
   }
 }
