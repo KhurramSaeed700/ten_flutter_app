@@ -71,7 +71,7 @@ class __IntegerExampleState extends State<_IntegerExample> {
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () => setState(() {
-                final newValue = _currentIntValue + 20;
+                final newValue = _currentIntValue + 10;
                 _currentIntValue = newValue.clamp(0, 100);
               }),
             ),
@@ -80,6 +80,7 @@ class __IntegerExampleState extends State<_IntegerExample> {
         Divider(color: Colors.grey[800], height: 32),
         SizedBox(height: 16),
         Text('Horizontal', style: Theme.of(context).textTheme.headline6),
+        SizedBox(height: 16),
         NumberPicker(
           value: _currentHorizontalIntValue,
           minValue: 0,
@@ -90,7 +91,7 @@ class __IntegerExampleState extends State<_IntegerExample> {
           onChanged: (value) =>
               setState(() => _currentHorizontalIntValue = value),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(26),
             border: Border.all(color: Colors.black26),
           ),
         ),
@@ -108,7 +109,7 @@ class __IntegerExampleState extends State<_IntegerExample> {
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () => setState(() {
-                final newValue = _currentHorizontalIntValue + 20;
+                final newValue = _currentHorizontalIntValue + 10;
                 _currentHorizontalIntValue = newValue.clamp(0, 100);
               }),
             ),

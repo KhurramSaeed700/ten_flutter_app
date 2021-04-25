@@ -1,3 +1,7 @@
+// still some errors but i can not be bothered
+// i will fix them later
+// 25/4/2021
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -19,7 +23,11 @@ class _timerStopwatchState extends State<timerStopwatch>
   bool stopped = false;
   int timeForTimer = 0;
   String timeToDisplay = '0';
-  bool checkTimer = true;
+  bool stopTimer = false;
+  int s = 0;
+  int m = 0;
+  int h = 0;
+  int n = 0;
 
   TabController tb;
   @override
@@ -36,13 +44,29 @@ class _timerStopwatchState extends State<timerStopwatch>
     timeForTimer = (hour * 3600) + (min * 60) + (sec);
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       setState(() {
-        if (timeForTimer < 1 || checkTimer == false) {
+        if (timeForTimer < 1 || stopTimer == true) {
           t.cancel();
-          checkTimer = true;
+          stopTimer = false;
+          timeToDisplay = '0';
+          started = true;
+          stopped = false;
+        } else if (timeForTimer < (60)) {
+          timeToDisplay = timeForTimer.toString();
+          timeForTimer -= 1;
+        } else if (timeForTimer < (3600)) {
+          m = timeForTimer ~/ (60);
+          s = timeForTimer - (m * (60));
+          timeToDisplay = m.toString() + ':' + s.toString();
+          timeForTimer -= 1;
         } else {
+          h = timeForTimer ~/ (3600);
+          n = timeForTimer - ((3600) * h);
+          m = n ~/ (60);
+          s = n - ((60) * m);
+          timeToDisplay = h.toString() + ':' + m.toString() + ':' + s.toString();
           timeForTimer -= 1;
         }
-        timeToDisplay = timeForTimer.toString();
+        // timeToDisplay = timeForTimer.toString();
       });
     });
   }
@@ -51,7 +75,7 @@ class _timerStopwatchState extends State<timerStopwatch>
     setState(() {
       started = true;
       stopped = false;
-      checkTimer = false;
+      stopTimer = true;
     });
   }
 
